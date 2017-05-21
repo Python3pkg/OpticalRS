@@ -123,9 +123,9 @@ def ranked_combos(x_img,y_depths,n=2):
     """
     od = OrderedDict()
     nbands = x_img.shape[-1]
-    for comb in itertools.combinations( range(nbands), n ):
+    for comb in itertools.combinations( list(range(nbands)), n ):
         od[ get_selfscore(comb,x_img,y_depths) ] = comb
-    od_sort = sorted( od.items(), key=lambda t: t[0], reverse=True )
+    od_sort = sorted( list(od.items()), key=lambda t: t[0], reverse=True )
     return OrderedDict(od_sort)
 
 def best_combo(x_img,y_depths,n=2):
@@ -154,7 +154,7 @@ def best_combo(x_img,y_depths,n=2):
         This will be the best band combo to use for depth regression. The length
         of this tuple will be `n`.
     """
-    return ranked_combos(x_img,y_depths,n).values()[0]
+    return list(ranked_combos(x_img,y_depths,n).values())[0]
 
 def tuned_linear_model(x_img,y_depths,n=2,n_jobs=4):
     """
@@ -497,7 +497,7 @@ def cov_ratios(msarr,nir_band=7):
         One r_ij value for each band of `msarr`.
     """
     nbands = msarr.shape[-1] #assume Rows,Cols,Bands shape
-    bands = range(nbands)
+    bands = list(range(nbands))
     cov_rats = []
     if nir_band in bands: bands.remove(nir_band)
     for band in bands:
@@ -548,7 +548,7 @@ def glint_correct_image(imarr, glintarr, nir_band=7):
     # we don't want to try to apply the correction
     # to the NIR band
     nbands = imarr.shape[-1]
-    bands = range(nbands)
+    bands = list(range(nbands))
     bands.remove(nir_band)
     outarr = imarr.copy()
     for i,band in enumerate(bands):

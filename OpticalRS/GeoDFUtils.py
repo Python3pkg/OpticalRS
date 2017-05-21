@@ -9,7 +9,7 @@ Methods to work with GeoDataFrames from GeoPandas.
 import geopandas as gpd
 from osgeo import osr
 import numpy as np
-from RasterDS import RasterDS
+from .RasterDS import RasterDS
 
 class RasterShape(object):
     """
@@ -164,7 +164,7 @@ def point_sample_raster(gdf, rds, win_radius=0, stat_func=np.mean, col_names=Non
             geom = outdf.ix[i].geometry
             if rast_poly.contains(geom):
                 px, py = map_to_pix(geom.x, geom.y, gt)
-                print px, py
+                print(px, py)
                 pointarr = rds.band_array_subset(px-win_radius,py-win_radius,winsize,winsize).reshape(-1,nbands)
                 pointstat = stat_func(pointarr,axis=0)
                 pointstatlist.append(pointstat)

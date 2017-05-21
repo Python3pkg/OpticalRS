@@ -203,7 +203,7 @@ def mask_land(imarr, nir_threshold=100, conn_threshold=1000, structure=None):
 
     nbands = imarr.shape[-1]
     mask = np.repeat( np.expand_dims(mask1d,2), nbands, axis=2 )
-    return np.ma.masked_where( mask<>1, imarr )
+    return np.ma.masked_where( mask!=1, imarr )
 
 if __name__ == "__main__":
     import doctest

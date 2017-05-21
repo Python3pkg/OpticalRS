@@ -380,7 +380,7 @@ def save_temp(imarr, rds=None):
         fileTemp.close()
         rds.new_image_from_array(np.atleast_3d(imarr),
                              tfp, dtype=NP2GDAL_CONVERSION[imarr.dtype.name])
-    print "Temp image created. Don't forget to delete the file: {}".format(tfp)
+    print("Temp image created. Don't forget to delete the file: {}".format(tfp))
     return tfp
 
 def invalid_fill_single(data, invalid=None):

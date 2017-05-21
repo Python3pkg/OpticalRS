@@ -33,7 +33,7 @@ def depth(request):
 
 @pytest.fixture
 def dep_est(image,depth):
-    print "Img Type: {}, Depth Type: {}".format(type(image).__name__,type(depth).__name__)
+    print("Img Type: {}, Depth Type: {}".format(type(image).__name__,type(depth).__name__))
     return DepthEstimator(image,depth)
 
 

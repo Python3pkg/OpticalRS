@@ -11,8 +11,8 @@ import numpy as np
 import pandas as pd
 from math import ceil
 from matplotlib.pyplot import subplots
-from Const import wv2_bandnames, cnames
-from MSExposure import equalize_adapthist
+from .Const import wv2_bandnames, cnames
+from .MSExposure import equalize_adapthist
 
 def multiband_histogram( img, nbins=256, figwidth=14 ):
     """

@@ -35,7 +35,7 @@ from scipy.stats import linregress
 import numpy as np
 from matplotlib import pyplot as plt
 from statsmodels.nonparametric.smoothers_lowess import lowess
-from ArrayUtils import equalize_array_masks
+from .ArrayUtils import equalize_array_masks
 
 def regressions(Z,X):
     """

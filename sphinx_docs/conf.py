@@ -80,8 +80,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Optical Remote Sensing'
-copyright = u'2014, Jared Kibele'
+project = 'Optical Remote Sensing'
+copyright = '2014, Jared Kibele'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -234,8 +234,8 @@ latex_elements = {
 # [howto/manual]).
 latex_documents = [
     ('index', 'OpticalRS.tex',
-     u'Optical Remote Sensing Documentation',
-     u'Jared Kibele', 'manual'),
+     'Optical Remote Sensing Documentation',
+     'Jared Kibele', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at
@@ -265,8 +265,8 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'OpticalRS',
-     u'Optical Remote Sensing Documentation',
-     [u'Jared Kibele'], 1)
+     'Optical Remote Sensing Documentation',
+     ['Jared Kibele'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -280,8 +280,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'OpticalRS',
-     u'Optical Remote Sensing Documentation',
-     u'Jared Kibele',
+     'Optical Remote Sensing Documentation',
+     'Jared Kibele',
      'OpticalRS',
      'One line description of project.',
      'Miscellaneous'),

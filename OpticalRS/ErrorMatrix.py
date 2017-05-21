@@ -115,10 +115,10 @@ def error_matrix( reference, comparison, categories=None, unclassified=0 ):
            [ 3,  0, 13,  0],
            [ 7,  0,  0, 20]])
     """
-    idx = np.where( reference<>unclassified )
+    idx = np.where( reference!=unclassified )
     all_classes = np.unique( np.vstack( (reference[idx],comparison[idx]) ) )
     n = len( all_classes )
-    em = np.array([z.count(x) for z in [zip(reference.flatten(),comparison.flatten())] for x in itertools.product(all_classes,repeat=2)]).reshape(n,n).view( ErrorMatrix )
+    em = np.array([z.count(x) for z in [list(zip(reference.flatten(),comparison.flatten()))] for x in itertools.product(all_classes,repeat=2)]).reshape(n,n).view( ErrorMatrix )
     if categories:
         em.categories = categories
     else:
@@ -170,7 +170,7 @@ class ErrorMatrix( np.ndarray ):
             obj.categories = categories
         else:
             # if not, just label with numbers starting at 1
-            obj.categories = range(1,1+obj.shape[0])
+            obj.categories = list(range(1,1+obj.shape[0]))
         obj.title = title
         # Finally, we must return the newly created object:
         return obj
@@ -179,7 +179,7 @@ class ErrorMatrix( np.ndarray ):
         # see InfoArray.__array_finalize__ for comments
         # http://docs.scipy.org/doc/numpy/user/basics.subclassing.html
         if obj is None: return
-        self.categories = getattr(obj, 'categories', range(1,1+self.shape[0]))
+        self.categories = getattr(obj, 'categories', list(range(1,1+self.shape[0])))
         self.title = getattr(obj, 'title', None)
 
     def round(self, *places):

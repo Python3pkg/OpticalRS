@@ -10,8 +10,8 @@ but those methods are the main use for this module at the moment. The two
 """
 
 #from error_matrix import *
-from RasterDS import RasterDS
-from ErrorMatrix import ErrorMatrix
+from .RasterDS import RasterDS
+from .ErrorMatrix import ErrorMatrix
 from scipy.stats.stats import mode
 import numpy as np
 import pandas as pd
@@ -105,8 +105,7 @@ class GroundTruthGDF(gpd.GeoDataFrame):
         # way around so .T
         em = confusion_matrix(compdf.truth, compdf.pred).T.view(ErrorMatrix)
         codes = np.sort(np.unique(compdf.dropna()))
-        em.categories = map(lambda s: self.codes_habitat.get(s, "Unclassified"),
-                            codes)
+        em.categories = [self.codes_habitat.get(s, "Unclassified") for s in codes]
         return em
 
     def compare_raster(self, rds, radius=0, generous=False, band_index=0,
@@ -306,11 +305,11 @@ class GroundTruthShapefile(object):
         Just return whether it's a type of point, line, or polygon.
         """
         type_name = ogr.GeometryTypeToName( self.ds.GetLayer().GetGeomType() ).lower()
-        if type_name.find('point') <> -1:
+        if type_name.find('point') != -1:
             return 'point'
-        elif type_name.find('line') <> -1:
+        elif type_name.find('line') != -1:
             return 'line'
-        elif type_name.find('polygon') <> -1:
+        elif type_name.find('polygon') != -1:
             return 'polygon'
         else:
             return None
@@ -333,7 +332,7 @@ class GroundTruthShapefile(object):
         Return a dictionary just like habitat_codes only backwards.
         """
         chd = {}
-        for k,v in self.habitat_codes.items():
+        for k,v in list(self.habitat_codes.items()):
             chd[v] = k
         return chd
 
@@ -540,7 +539,7 @@ class GroundTruthShapefile(object):
         errmat = np.zeros((maxcode, maxcode), int)
         cats = list()
         rext = classification_ds.raster_extent
-        for hab,code in self.habitat_codes.items():
+        for hab,code in list(self.habitat_codes.items()):
             for feature in self.hab_dict[hab]:
                 ref_val = code
                 geom = feature.geometry()
@@ -604,7 +603,7 @@ class GroundTruthShapefile(object):
         errmat = np.zeros((maxcode, maxcode), int)
         cats = list()
         rext = classification_ds.raster_extent
-        for hab,code in self.habitat_codes.items():
+        for hab,code in list(self.habitat_codes.items()):
             for feature in self.hab_dict[hab]:
                 ref_val = code
                 geom = feature.geometry()
@@ -737,13 +736,13 @@ class GroundTruthShapefile(object):
                 fname = fname.replace( old, new )
         outDs = driver.Create(fname, cols, rows, 1, GDT_Int16)
         if outDs is None:
-            print 'Could not create %s' % fname
+            print('Could not create %s' % fname)
             sys.exit(1)
 
         outBand = outDs.GetRasterBand(1)
 
         pixel_count = 0
-        hab_pix_count = dict( zip( [h for h in self.habitats if h], np.zeros( len([h for h in self.habitats if h]), dtype=np.int ) ) )
+        hab_pix_count = dict( list(zip( [h for h in self.habitats if h], np.zeros( len([h for h in self.habitats if h]), dtype=np.int ) )) )
         for feat in lyr:
             if not feat.habitat:
                 continue
@@ -781,10 +780,10 @@ class GroundTruthShapefile(object):
         gdal.SetConfigOption('HFA_USE_RRD', 'YES')
         outDs.BuildOverviews(overviewlist=[2,4,8,16,32,64,128])
 
-        print "%i pixels total" % pixel_count
+        print("%i pixels total" % pixel_count)
         for hab in self.habitats:
             if hab:
-                print "%i pixels for %s" % ( hab_pix_count[hab], hab )
+                print("%i pixels for %s" % ( hab_pix_count[hab], hab ))
 
         return GroundTruthRaster( outDs.GetDescription() )
 
@@ -817,6 +816,6 @@ def open_shapefile(filename):
     driver = ogr.GetDriverByName('ESRI Shapefile')
     shp = driver.Open(filename)
     if shp is None:
-        print 'Could not open %s' % filename
+        print('Could not open %s' % filename)
         sys.exit(1)
     return shp

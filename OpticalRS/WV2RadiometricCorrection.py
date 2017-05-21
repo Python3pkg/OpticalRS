@@ -50,7 +50,7 @@ def open_raster(filename):
     # open the image
     img = gdal.Open(filename, GA_ReadOnly)
     if img is None:
-        print 'Could not open %s' % filename
+        print('Could not open %s' % filename)
         sys.exit(1)
     else:
         return img
@@ -75,7 +75,7 @@ def output_gtif(bandarr, cols, rows, outfilename, geotransform, projection, no_d
     driver = gdal.GetDriverByName(driver_name)
     outDs = driver.Create(outfilename, cols, rows, len(bandarr), dtype)
     if outDs is None:
-        print "Could not create %s" % outfilename
+        print("Could not create %s" % outfilename)
         sys.exit(1)
     for bandnum in range(1,len(bandarr) + 1):  # bandarr is zero based index while GetRasterBand is 1 based index
         outBand = outDs.GetRasterBand(bandnum)
@@ -297,7 +297,7 @@ def dark_pixel_subtraction(bandarr,prcnt=0.001,verbose=False):
         barr[np.where(barr<=0.0)] = 0.0
         bandarr[bnum] = barr
         if verbose:
-            print "%.2f subtracted from band %i" % (subvalue,bnum+1)
+            print("%.2f subtracted from band %i" % (subvalue,bnum+1))
     return bandarr
 
 def dark_pixel_proof_output(img,prcnt=0.001,outfilename=None):
@@ -338,7 +338,7 @@ def toa_radiance_multiband(bandarr,xmlorimagepath):
     ebd = effectiveBandwidth_dict(xmlroot)
 
     for band in range(len(bandarr)):
-        toa_arr = toa_radiance(bandarr[band],abfd.values()[band],ebd.values()[band])
+        toa_arr = toa_radiance(bandarr[band],list(abfd.values())[band],list(ebd.values())[band])
         if band==0:
             toabandarr = np.array([toa_arr])
         else:
@@ -367,7 +367,7 @@ def toa_reflectance_multiband(bandarr,xmlorimagepath):
     solarZenith = solarZenithAngle(xmlroot)
     # loop through the bands
     for band in range( len(bandarr) ):
-        toa_arr = toa_reflectance(bandarr[band],abfd.values()[band],ebd.values()[band],Esun_od.values()[band],distES,solarZenith)
+        toa_arr = toa_reflectance(bandarr[band],list(abfd.values())[band],list(ebd.values())[band],list(Esun_od.values())[band],distES,solarZenith)
         if band==0:
             toabandarr = np.array([toa_arr])
         else:
@@ -436,7 +436,7 @@ if __name__ == '__main__':
         import doctest
         doctest.testmod()
         if not args.doctest:
-            print "This module just got tested. If that was not what you were aiming for run with '-h' for help."
+            print("This module just got tested. If that was not what you were aiming for run with '-h' for help.")
         sys.exit(1)
 
     if not args.outfile:
@@ -465,4 +465,4 @@ if __name__ == '__main__':
 
     output_gtif_like_img(img,bandarr,args.outfile)
 
-    print 'Results written to: %s' % args.outfile
+    print('Results written to: %s' % args.outfile)

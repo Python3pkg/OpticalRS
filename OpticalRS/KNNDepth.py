@@ -17,7 +17,7 @@ Applied Earth Observations and Remote Sensing.
 """
 
 from sklearn.neighbors import KNeighborsRegressor
-from ArrayUtils import mask3D_with_2D
+from .ArrayUtils import mask3D_with_2D
 
 def train_model(pixels, depths, **kwargs):
     """

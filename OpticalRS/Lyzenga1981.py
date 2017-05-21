@@ -154,7 +154,7 @@ def di_indexes_bandarr(imarr,sandarr,n_bands,subset_slice=None,pix_band_shaped=F
     """
     if subset_slice:
         imarr = imarr[subset_slice]
-    combos = [cb for cb in combinations( range(n_bands), 2 ) ]
+    combos = [cb for cb in combinations( list(range(n_bands)), 2 ) ]
     n_combos = len( combos )
     arrdtype = imarr.dtype
     if np.ma.is_masked( imarr ):
@@ -241,7 +241,7 @@ def plot_band_combos(sandarr,n_bands,apply_log=True,figsize=(15,15)):
     logmax = logarr.max()
     logmin = logarr.min()
     fig,axarr = plt.subplots(n_bands-1,n_bands-1,figsize=figsize,sharex=True,sharey=True,frameon=False)
-    for i,j in combinations(range(n_bands),2):
+    for i,j in combinations(list(range(n_bands)),2):
         if np.ma.is_masked:
             x,y = logarr[:,:,i].compressed(),logarr[:,:,j].compressed()
         else:

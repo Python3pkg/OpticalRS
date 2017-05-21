@@ -14,7 +14,7 @@ from osgeo.gdalconst import *
 from osgeo.gdal_array import NumericTypeCodeToGDALTypeCode
 import numpy as np
 from scipy.stats import mode as scipymode
-from RasterSubset import masked_subset
+from .RasterSubset import masked_subset
 from shapely.geometry import Polygon as shpPoly
 import shapely as shpl
 
@@ -62,9 +62,9 @@ class RasterDS(object):
         img = gdal.Open(self.file_path, GA_ReadOnly)
         if img is None:
             if os.path.exists(self.file_path):
-                print 'Could not open %s. This file does not seem to be one that gdal can open.' % self.file_path
+                print('Could not open %s. This file does not seem to be one that gdal can open.' % self.file_path)
             else:
-                print 'Could not open %s. It seems that this file does not exist.' % self.file_path
+                print('Could not open %s. It seems that this file does not exist.' % self.file_path)
             return None
         else:
             return img
@@ -537,7 +537,7 @@ def output_gtif(bandarr, cols, rows, outfilename, geotransform, projection, no_d
     # from 216MB to 87MB. Predictor 2 is horizontal differencing.
     outDs = driver.Create(outfilename, cols, rows, len(bandarr), dtype,  options=[ 'COMPRESS=LZW','PREDICTOR=2' ])
     if outDs is None:
-        print "Could not create %s" % outfilename
+        print("Could not create %s" % outfilename)
         sys.exit(1)
     for bandnum in range(1,len(bandarr) + 1):  # bandarr is zero based index while GetRasterBand is 1 based index
         outBand = outDs.GetRasterBand(bandnum)

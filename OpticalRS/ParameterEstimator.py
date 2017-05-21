@@ -1,14 +1,14 @@
 
 
-from GeoDFUtils import RasterShape
-from RasterDS import RasterDS
-from ArrayUtils import equalize_array_masks, band_percentiles
-from AlbedoIndex import albedo_parameter_plots, est_curve_params, param_df,\
+from .GeoDFUtils import RasterShape
+from .RasterDS import RasterDS
+from .ArrayUtils import equalize_array_masks, band_percentiles
+from .AlbedoIndex import albedo_parameter_plots, est_curve_params, param_df,\
                         surface_refraction_correction, surface_reflectance_correction
-from WV2RadiometricCorrection import get_xmlroot, meanSunEl, meanOffNadirViewAngle
-from Lyzenga2006 import dark_pixel_array
-from Lyzenga1978 import regression_plot, regressions
-from Const import wv2_center_wavelength, jerlov_Kd
+from .WV2RadiometricCorrection import get_xmlroot, meanSunEl, meanOffNadirViewAngle
+from .Lyzenga2006 import dark_pixel_array
+from .Lyzenga1978 import regression_plot, regressions
+from .Const import wv2_center_wavelength, jerlov_Kd
 from pylab import subplots
 import numpy as np
 import geopandas as gpd
@@ -116,7 +116,7 @@ class ParameterEstimator(RasterShape):
         gt1 = np.array(self.img_rds.gdal_ds.GetGeoTransform())[[1,5]]
         gt2 = np.array(self.depth_rds.gdal_ds.GetGeoTransform())[[1,5]]
         if print_res:
-            print gt1, gt2
+            print(gt1, gt2)
         return np.allclose(gt1, gt2)
 
     @property

@@ -19,10 +19,10 @@ a simple physically based algorithm. Geoscience and Remote Sensing, IEEE
 Transactions on 44, 2251–2259. doi:10.1109/TGRS.2006.872909
 """
 
-from RasterDS import RasterDS
-from ArrayUtils import mask3D_with_2D, equalize_array_masks, equalize_band_masks
-import KNNDepth
-from Lyzenga2006 import dark_pixel_array, fit_and_predict, deep_water_means
+from .RasterDS import RasterDS
+from .ArrayUtils import mask3D_with_2D, equalize_array_masks, equalize_band_masks
+from . import KNNDepth
+from .Lyzenga2006 import dark_pixel_array, fit_and_predict, deep_water_means
 import numpy as np
 from sklearn.cross_validation import train_test_split
 

@@ -27,7 +27,7 @@ def jerlov_Kd():
     Jerlov, N.G., 1976. Marine Optics. Elsevier.
     """
     # I have to do this with the column names to get the order right
-    colnames = [u'I', u'IA', u'IB', u'II', u'III', u'C1', u'C3', u'C5', u'C7', u'C9']
+    colnames = ['I', 'IA', 'IB', 'II', 'III', 'C1', 'C3', 'C5', 'C7', 'C9']
     return pd.read_json(jerlov_json)[colnames]
 
 # Approximate albedo values for kelp and sand. These values were estimated from
@@ -37,17 +37,17 @@ def jerlov_Kd():
 # composition in shallow waters using multispectral reflectance. Limnology and
 # Oceanography 48, 557–567.
 # from figure 4A
-kelp_albedo = dict( zip(wv2_center_wavelength,[0.025,0.025,0.035,0.05,0.045,0.03]) )
+kelp_albedo = dict( list(zip(wv2_center_wavelength,[0.025,0.025,0.035,0.05,0.045,0.03])) )
 # from the brighter portion of figure 4E
-sand_albedo = dict( zip(wv2_center_wavelength,[0.05,0.065,0.08,0.11,0.12,0.12]) )
+sand_albedo = dict( list(zip(wv2_center_wavelength,[0.05,0.065,0.08,0.11,0.12,0.12])) )
 # from figure 4F
-tropical_sand_albedo = dict(zip(wv2_center_wavelength,
-                                [0.23,0.3,0.36,0.42,0.48,0.5]))
+tropical_sand_albedo = dict(list(zip(wv2_center_wavelength,
+                                [0.23,0.3,0.36,0.42,0.48,0.5])))
 # Rd values from Werdell and Roesler 2003 figure 4C
-LI_Rd = dict(zip(wv2_center_wavelength,[0.01,0.02,0.025,0.018,0.008,0.007]))
+LI_Rd = dict(list(zip(wv2_center_wavelength,[0.01,0.02,0.025,0.018,0.008,0.007])))
 # Rd values from Werdell and Roesler 2003 figure 4D
-B_Rd = dict(zip(wv2_center_wavelength,[0.075,0.055,0.015,0.01,0.005,0.001]))
+B_Rd = dict(list(zip(wv2_center_wavelength,[0.075,0.055,0.015,0.01,0.005,0.001])))
 # Kd values from Werdell and Roesler 2003 figure 2A
-LI_Kd = dict(zip(wv2_center_wavelength,[0.79,0.54,0.42,0.5,0.7,0.8]))
+LI_Kd = dict(list(zip(wv2_center_wavelength,[0.79,0.54,0.42,0.5,0.7,0.8])))
 # Kd values from Werdell and Roesler 2003 figure 2B
-B_Kd = dict(zip(wv2_center_wavelength,[0.1,0.06,0.1,0.25,0.4,0.45]))
+B_Kd = dict(list(zip(wv2_center_wavelength,[0.1,0.06,0.1,0.25,0.4,0.45])))

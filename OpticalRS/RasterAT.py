@@ -8,9 +8,9 @@ Attribute Tables. The idea is to read and write RATs using GDAL but to represent
 and manipulate them using pandas.
 """
 
-from RasterDS import RasterDS
-from GeoDFUtils import point_sample_raster
-from GroundTruthShp import GroundTruthShapefile
+from .RasterDS import RasterDS
+from .GeoDFUtils import point_sample_raster
+from .GroundTruthShp import GroundTruthShapefile
 import geopandas as gpd
 from osgeo import gdal
 import pandas as pd
@@ -22,8 +22,8 @@ f_use = [gdal.GFU_Name, gdal.GFU_PixelCount, gdal.GFU_MinMax, gdal.GFU_Red,
          gdal.GFU_Blue, gdal.GFU_Green, gdal.GFU_Alpha]
 f_type = [gdal.GFT_String, gdal.GFT_Integer, gdal.GFT_Integer, gdal.GFT_Integer,
           gdal.GFT_Integer, gdal.GFT_Integer, gdal.GFT_Integer]
-f_use_d = dict(zip(f_names, f_use))
-f_type_d = dict(zip(f_names, f_type))
+f_use_d = dict(list(zip(f_names, f_use)))
+f_type_d = dict(list(zip(f_names, f_type)))
 
 class RAT(RasterDS):
     def __init__(self, rlayer, overwrite=True):
@@ -323,7 +323,7 @@ def gdal_rat_to_df(grat):
     # I want to order the columns in a sensible way
     stdcols = list(f_names)
     stdcols.remove('ClassNumber')
-    customcols = [c for c in dfdict.keys() if c not in stdcols]
+    customcols = [c for c in list(dfdict.keys()) if c not in stdcols]
     colord = customcols
     colord.extend(stdcols)
     df = pd.DataFrame(dfdict, index=idx)[colord]
